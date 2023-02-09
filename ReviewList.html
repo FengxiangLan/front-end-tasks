@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+</head>
+<body>
+	<ul id="review-list"></ul>
+
+	<script>
+		const reviewList = document.getElementById('review-list');
+
+		fetch('https://quotesondesign.com/wp-json/wp/v2/posts?orderby=rand')
+			.then(response => response.json())
+			.then(data => {
+				data.forEach(item => {
+					const review = document.createElement('li');
+					review.innerHTML = item.content.rendered;
+					reviewList.appendChild(review);
+				});
+			})
+			.catch(error => {
+				console.log(error);
+			});
+	</script>
+</body>
+</html>

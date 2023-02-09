@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<style>
+      #todo-list {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+      }
+      #todo-list li, #number {
+        padding: 10px;
+        border-bottom: 1px solid #ccc;
+      }
+    </style>
+</head>
+<body>
+	<input type='text' id='input' />
+	<button onClick="handleAdd()">Add</button>
+
+	<ul id='todo-list'></ul>
+
+	<div id='number'></div>
+
+	<script>
+		const inputField = document.getElementById("input");
+		const todoList = document.getElementById("todo-list");
+  	const count = document.getElementById("number");
+
+  	let todos = [];
+		
+		const handleAdd = () => {
+			console.log('hello');
+			todos.push(inputField.value);
+			inputField.value = '';
+			renderTodos();
+		};
+
+		const handleRemove = (index) => {
+			todos.splice(index, 1);
+			renderTodos();
+		};
+
+		const renderTodos = () => {
+			todoList.innerHTML = '';
+			todos.forEach((todo, index) => {
+				const todoItem = document.createElement('li');
+				todoItem.innerHTML = todo;
+				const removedButton = document.createElement('button');
+				removedButton.innerHTML = 'Delete';
+				removedButton.onclick = () => handleRemove(index);
+				todoItem.appendChild(removedButton);
+				todoList.appendChild(todoItem);
+			});
+			if (todos.length === 0) {
+					count.innerHTML = '';
+			} else {
+				count.innerHTML = 'Number is: ' + todos.length;
+			}
+			
+		}
+
+	</script>
+
+</body>
+</html>
